@@ -5,8 +5,12 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+     //figure out how to set up heap allocation
+     objPos *player(Pos->x,Pos->y,'8');
+     objPos *player = new objPos;
 
     // more actions to be included
+    
 }
 
 

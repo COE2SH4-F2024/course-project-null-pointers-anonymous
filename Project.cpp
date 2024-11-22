@@ -16,7 +16,7 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
+Player p;
 
 int main(void)
 {

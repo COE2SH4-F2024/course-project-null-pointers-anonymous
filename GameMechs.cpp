@@ -14,8 +14,8 @@ GameMechs::GameMechs()
     for (int i = 0; i < boardsizeX; i++)
         for (int j = 0; j < boardsizeY; j++)
             board[i][j] = 0;
-
-}
+    
+    // starting position
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
