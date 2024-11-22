@@ -19,7 +19,8 @@ class GameMechs
 
         int boardSizeX;
         int boardSizeY;
-        int **board;
+        char **board;
+        char val;
 
         objPos food;
 
@@ -43,7 +44,12 @@ class GameMechs
         int getScore() const;
         void incrementScore();
         
+        char getBoard(int x, int y);
+        void setBoard(int x, int y, char val);
+        
         // More methods should be added here
+
+        
 };
 
 #endif
