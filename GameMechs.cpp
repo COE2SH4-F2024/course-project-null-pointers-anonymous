@@ -2,9 +2,9 @@
 
 GameMechs::GameMechs()
 {
-    int boardsizeX = 10;
-    int boardsizeY = 20;
-    int board = new int * [boardsizeX];
+    int boardsizeX = 30;
+    int boardsizeY = 15;
+    int **board = new int * [boardsizeX];
 
     for (int i = 0; i < boardsizeX; i++)
     {
@@ -25,7 +25,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     if(boardY <=0) {
         boardY=20;
     }
-    int board = new int * [boardX];
+    int **board = new int * [boardX];
 
     for (int i = 0; i < boardX; i++)
     {
