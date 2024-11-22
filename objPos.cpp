@@ -22,10 +22,10 @@ objPos::objPos(int xPos, int yPos, char sym)
 objPos::~objPos() {
 
 }
-objPos::objPos(const &obj) {
+objPos::objPos(const objPos &obj) {
 
 }
-objPos::objPos &operator=(const &obj) {
+objPos &objPos::operator=(const objPos &obj) {
     
 }
 
