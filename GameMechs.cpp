@@ -71,7 +71,8 @@ int GameMechs::getScore() const
 
 void GameMechs::incrementScore()
 {
-    
+    //if apple is touched 
+    score++;
 }
 
 int GameMechs::getBoardSizeX() const
@@ -90,7 +91,6 @@ void GameMechs::setExitTrue()
     if(input = ' ') {
         exitFlag=true;
     }
-    return exitFlag;
 }
 
 void GameMechs::setLoseFlag()
@@ -100,7 +100,7 @@ void GameMechs::setLoseFlag()
 void GameMechs::setInput(char this_input)
 {
     if(this_input!=0) {
-        return this_input;
+        
     }
 }
 
