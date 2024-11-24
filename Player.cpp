@@ -6,7 +6,7 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
      //figure out how to set up heap allocation
-    //playerPos = new objPos*;
+    // playerPos = new objPos*;
     objPos playerPos(15, 8, '8');
      
 
@@ -17,6 +17,7 @@ Player::Player(GameMechs* thisGMRef)
 
 Player::~Player()
 {
+    delete[] mainGameMechsRef;
     // delete any heap members here
 }
 
