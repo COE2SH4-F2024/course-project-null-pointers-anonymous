@@ -46,6 +46,7 @@ class GameMechs
         
         char getBoard(int x, int y);
         void setBoard(int x, int y, char val);
+        void setObject(const objPos& obj);
         
         // More methods should be added here
 

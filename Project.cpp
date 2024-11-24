@@ -19,15 +19,15 @@ void CleanUp(void);
 
 
 
-GameMechs* x = new GameMechs();
-Player *p = new Player(x);
+GameMechs* board;
+Player *p;
 
 int main(void)
 {
 
     Initialize();
 
-    while(x->getExitFlagStatus()== false)  
+    while(board->getExitFlagStatus()== false)  
     {
         GetInput();
         RunLogic();
@@ -45,38 +45,54 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    exitFlag = false;
+    board = new GameMechs();
+    p = new Player(board);
+    p->drawPlayer();
+    
 }
 
 void GetInput(void)
 {
     if (MacUILib_hasChar())
     {
-        x->setInput(MacUILib_getChar());
+        board->setInput(MacUILib_getChar());
     }
 }
 
 void RunLogic(void)
 {
+    if (board->getInput() == ' ') {
+        board->setExitTrue();
+    }
+    else if(board->getInput()=='q') {
+        board->incrementScore();
+    }
+    p->updatePlayerDir();
+    p->movePlayer();
+    p->drawPlayer();
+    board->clearInput();
     
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
+
     // actually prints out board
-    for (int i = 0; i < x->getBoardSizeY(); i++)
+    int xBound = board->getBoardSizeX(), yBound = board->getBoardSizeY();
+    int i, j;
+    for (i = 0; i < yBound; i++)
     {
-        for (int j = 0; j < x->getBoardSizeX(); j++)
+        for (j = 0; j < xBound; j++)
         {
-            MacUILib_printf("%c", x->getBoard(i,j));
+            MacUILib_printf("%c", board->getBoard(i, j));
         }
         MacUILib_printf("\n");
     }
     MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
+    MacUILib_printf("Score: %d", board->getScore());
 
 }
-
 void LoopDelay(void)
 {
     MacUILib_Delay(DELAY_CONST); // 0.1s delay
@@ -88,6 +104,6 @@ void CleanUp(void)
     MacUILib_clearScreen();    
 
     MacUILib_uninit();
-    delete[] p;
-    delete[] x;
+    delete p;
+    delete board;
 }

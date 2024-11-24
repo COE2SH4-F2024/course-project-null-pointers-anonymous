@@ -2,39 +2,58 @@
 
 GameMechs::GameMechs()
 {
-    int boardsizeX = 30;
-    int boardsizeY = 15;
-    int **board = new int * [boardsizeX];
+    boardSizeX = 30;
+    boardSizeY = 15;
+    score=0;
+    exitFlag = false;
+    int i, j;
 
-    for (int i = 0; i < boardsizeX; i++)
+    board = new char * [boardSizeY];
+    for (i = 0; i < boardSizeY; i++)
     {
-        board[i] = new int[boardsizeY];
+        board[i] = new char [boardSizeX];
     }
-
-    for (int i = 0; i < boardsizeX; i++)
-        for (int j = 0; j < boardsizeY; j++)
-            board[i][j] = ' ';
-    
-    // starting position
+    for (i = 0; i < boardSizeY; i++) {
+        for (j = 0; j < boardSizeX; j++) {
+            if (i == boardSizeY - 1 || i == 0 || j == boardSizeX - 1 || j == 0)
+            {
+                board[i][j] = '#';
+            }
+            else {
+                board[i][j] = ' ';
+            }
+        }
+    }
 }
 GameMechs::GameMechs(int boardX, int boardY)
 {
+    exitFlag=false;
+    score=0;
     if(boardX <= 0) {
         boardX=30;
     }
     if(boardY <=0) {
         boardY=15;
     }
-    int **board = new int * [boardX];
+    board = new char * [boardY];
 
-    for (int i = 0; i < boardX; i++)
+    for (int i = 0; i < boardY; i++)
     {
-        board[i] = new int[boardY];
+        board[i] = new char[boardX];
     }
-
-    for (int i = 0; i < boardX; i++)
-        for (int j = 0; j < boardY; j++)
-            board[i][j] = ' ';
+    boardSizeX = boardX;
+    boardSizeY = boardY;
+    for (int i = 0; i < boardSizeY; i++) {
+        for (int j = 0; j < boardSizeX; j++) {
+            if (i == boardSizeY - 1 || i == 0 || j == boardSizeX - 1 || j == 0)
+            {
+                board[i][j] = '#';
+            }
+            else {
+                board[i][j] = ' ';
+            }
+        }
+    }
 }
 
 // do you need a destructor?
@@ -88,9 +107,7 @@ int GameMechs::getBoardSizeY() const
 
 void GameMechs::setExitTrue()
 {
-    if(input = ' ') {
-        exitFlag=true;
-    }
+    exitFlag=true;
 }
 
 void GameMechs::setLoseFlag()
@@ -99,9 +116,7 @@ void GameMechs::setLoseFlag()
 
 void GameMechs::setInput(char this_input)
 {
-    if(this_input!=0) {
-        
-    }
+    input = this_input;
 }
 
 void GameMechs::clearInput()
@@ -110,10 +125,14 @@ void GameMechs::clearInput()
 }
 
 char GameMechs::getBoard(int x, int y) {
+
     return board[x][y];
 }
 void GameMechs::setBoard(int x, int y, char val) {
     board[x][y]=val;
+}
+void GameMechs::setObject(const objPos& obj ) {
+    board[obj.pos->x][obj.pos->y]=obj.getSymbol();
 }
 
 // More methods should be added here
