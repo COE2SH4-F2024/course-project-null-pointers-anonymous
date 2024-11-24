@@ -24,10 +24,10 @@ objPos::~objPos() {
 
 }
 objPos::objPos(const objPos &obj) {
-    
 
 }
-objPos &objPos::operator=(const objPos &obj) {
+objPos& objPos::operator=(const objPos& obj) {
+    return *this;
     
 }
 

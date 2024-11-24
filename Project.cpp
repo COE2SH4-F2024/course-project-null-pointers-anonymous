@@ -18,12 +18,16 @@ void CleanUp(void);
 
 
 
+
+GameMechs* x = new GameMechs();
+Player *p = new Player(x);
+
 int main(void)
 {
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(x->getExitFlagStatus()== false)  
     {
         GetInput();
         RunLogic();
@@ -46,7 +50,10 @@ void Initialize(void)
 
 void GetInput(void)
 {
-   
+    if (MacUILib_hasChar())
+    {
+        x->setInput(MacUILib_getChar());
+    }
 }
 
 void RunLogic(void)
@@ -56,7 +63,18 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
+    // actually prints out board
+    for (int i = 0; i < x->getBoardSizeY(); i++)
+    {
+        for (int j = 0; j < x->getBoardSizeX(); j++)
+        {
+            MacUILib_printf("%c", x->getBoard(i,j));
+        }
+        MacUILib_printf("\n");
+    }
+    MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
+
 }
 
 void LoopDelay(void)
@@ -70,4 +88,6 @@ void CleanUp(void)
     MacUILib_clearScreen();    
 
     MacUILib_uninit();
+    delete[] p;
+    delete[] x;
 }

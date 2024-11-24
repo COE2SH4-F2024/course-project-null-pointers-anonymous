@@ -13,17 +13,17 @@ GameMechs::GameMechs()
 
     for (int i = 0; i < boardsizeX; i++)
         for (int j = 0; j < boardsizeY; j++)
-            board[i][j] = 0;
-
+            board[i][j] = ' ';
+    
+    // starting position
 }
-
 GameMechs::GameMechs(int boardX, int boardY)
 {
     if(boardX <= 0) {
-        boardX=10;
+        boardX=30;
     }
     if(boardY <=0) {
-        boardY=20;
+        boardY=15;
     }
     int **board = new int * [boardX];
 
@@ -34,7 +34,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 
     for (int i = 0; i < boardX; i++)
         for (int j = 0; j < boardY; j++)
-            board[i][j] = 0;
+            board[i][j] = ' ';
 }
 
 // do you need a destructor?
@@ -107,6 +107,13 @@ void GameMechs::setInput(char this_input)
 void GameMechs::clearInput()
 {
     input = 0;
+}
+
+char GameMechs::getBoard(int x, int y) {
+    return board[x][y];
+}
+void GameMechs::setBoard(int x, int y, char val) {
+    board[x][y]=val;
 }
 
 // More methods should be added here
