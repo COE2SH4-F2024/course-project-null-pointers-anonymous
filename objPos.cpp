@@ -24,10 +24,20 @@ objPos::~objPos() {
 
 }
 objPos::objPos(const objPos &obj) {
+    pos->x = obj.pos->x;
+    pos->y = obj.pos->y;
+    symbol = obj.symbol;
 
 }
-objPos& objPos::operator=(const objPos& obj) {
-    return *this;
+objPos& objPos::operator=(const objPos &obj) {
+    if(this == &obj)
+    {
+        return *this;
+    }
+    
+    this->pos->x = obj.pos->x;
+    this->pos->y = obj.pos->y;
+    this->symbol = obj.symbol;
     
 }
 
