@@ -1,25 +1,20 @@
 #include "Player.h"
 
-
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs *thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-     //figure out how to set up heap allocation
-    //playerPos = new objPos*;
-    objPos playerPos(15, 8, '8');
-     
+    // figure out how to set up heap allocation
+    // playerPos = new objPos*;
+    objPos playerPos(10, 8, '8');
 
     // more actions to be included
-    
 }
-
 
 Player::~Player()
 {
     delete[] mainGameMechsRef;
     // delete any heap members here
-    
 }
 
 objPos Player::getPlayerPos() const
@@ -30,26 +25,23 @@ objPos Player::getPlayerPos() const
 
 void Player::updatePlayerDir()
 {
-    
-
-    
 }
 
 void Player::movePlayer()
 {
     // PPA3 Finite myDir Machine logic
-    
-    
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
+    playerPos.setObjPos(playerPos.pos->y,playerPos.pos->x,'8');
     mainGameMechsRef->setObject(playerPos);
+   // mainGameMechsRef->setBoard(playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol());
 }
 
 // More methods to be added
 
-//Benji PPA Copy Paste
-// Update PlayerDIR
+// Benji PPA Copy Paste
+//  Update PlayerDIR
 /*if (mainGameMechsRef->getInput() != 0) // if not null character
     {
         Dir prev_val = LEFT;
@@ -106,7 +98,7 @@ void Player::drawPlayer()
 
 
     }*/
-   //MOVE PLAYER
+// MOVE PLAYER
 /*if (myDir == LEFT)
     {
         if (playerPos.pos->x > 1)
