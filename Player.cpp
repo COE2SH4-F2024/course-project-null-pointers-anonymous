@@ -138,7 +138,7 @@ void Player::movePlayer()
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
-    //playerPos.setObjPos(playerPos.pos->y,playerPos.pos->x,'8');
+    playerPos.setObjPos(playerPos.pos->y,playerPos.pos->x,'8');
     mainGameMechsRef->setObject(playerPos);
 }
 
