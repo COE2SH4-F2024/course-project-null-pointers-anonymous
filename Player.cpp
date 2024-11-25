@@ -83,10 +83,12 @@ void Player::movePlayer()
         case UP:
             if(playerPos.pos->y == 1){
                 playerPos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             else{
                 playerPos.pos->y--;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             break;
@@ -94,10 +96,12 @@ void Player::movePlayer()
         case DOWN:
             if(playerPos.pos->y == mainGameMechsRef->getBoardSizeY() - 2){
                 playerPos.pos->y = 1;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             else{
                 playerPos.pos->y++;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             break;
@@ -105,10 +109,12 @@ void Player::movePlayer()
         case LEFT:
             if(playerPos.pos->x == 1){
                 playerPos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             else{
                 playerPos.pos->x--;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             break;
@@ -116,10 +122,12 @@ void Player::movePlayer()
         case RIGHT:
             if(playerPos.pos->x == mainGameMechsRef->getBoardSizeX() - 2){
                 playerPos.pos->x = 1;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             else{
                 playerPos.pos->x++;
+                playerPos.setObjPos(playerPos);
                 // mainGameMechsRef->setObject(playerPos);
             }
             break;
@@ -130,6 +138,7 @@ void Player::movePlayer()
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
+    //playerPos.setObjPos(playerPos.pos->y,playerPos.pos->x,'8');
     mainGameMechsRef->setObject(playerPos);
 }
 
