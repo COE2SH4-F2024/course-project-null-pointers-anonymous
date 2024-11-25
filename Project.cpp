@@ -16,10 +16,7 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
-
-
-GameMechs* board;
+GameMechs *board;
 Player *p;
 
 int main(void)
@@ -27,7 +24,7 @@ int main(void)
 
     Initialize();
 
-    while(board->getExitFlagStatus()== false)  
+    while (board->getExitFlagStatus() == false)
     {
         GetInput();
         RunLogic();
@@ -36,9 +33,7 @@ int main(void)
     }
 
     CleanUp();
-
 }
-
 
 void Initialize(void)
 {
@@ -48,7 +43,6 @@ void Initialize(void)
     board = new GameMechs();
     p = new Player(board);
     p->drawPlayer();
-    
 }
 
 void GetInput(void)
@@ -61,17 +55,19 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    if (board->getInput() == ' ') {
+    if (board->getInput() == ' ')
+    {
         board->setExitTrue();
     }
-    else if(board->getInput()=='q') {
+    else if (board->getInput() == 'q')
+    {
         board->incrementScore();
     }
-    p->updatePlayerDir();
-    p->movePlayer();
+    //p->updatePlayerDir();
+    //p->movePlayer();
     p->drawPlayer();
-    board->clearInput();
     
+    board->clearInput();
 }
 
 void DrawScreen(void)
@@ -100,10 +96,9 @@ void LoopDelay(void)
     MacUILib_Delay(DELAY_CONST); // 0.1s delay
 }
 
-
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
 
     MacUILib_uninit();
     delete p;
