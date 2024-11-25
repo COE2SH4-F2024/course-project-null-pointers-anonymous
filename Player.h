@@ -25,6 +25,8 @@ class Player
         void movePlayer();
         void drawPlayer();
 
+        int getDirection();
+
         // More methods to be added here
 
     private:

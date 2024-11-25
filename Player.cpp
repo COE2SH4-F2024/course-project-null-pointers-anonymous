@@ -6,7 +6,6 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
      //figure out how to set up heap allocation
-    //playerPos = new objPos*;
     objPos playerPos(15, 8, '8');
      
 
@@ -18,6 +17,8 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     delete[] mainGameMechsRef;
+    
+
     // delete any heap members here
     
 }
@@ -31,13 +32,99 @@ objPos Player::getPlayerPos() const
 void Player::updatePlayerDir()
 {
     
+    if(mainGameMechsRef->getInput() != 0)  // if not null character
+    {
+        switch(mainGameMechsRef->getInput())
+        {                      
+            case ' ':  // exit
+                mainGameMechsRef->setExitTrue();
+                break;
+            
+            case 'w':
+                if(myDir != DOWN)
+                {
+                    myDir = UP;
+                }
+                break;
+            
+            case 's':
+                if(myDir != UP)
+                {
+                    myDir = DOWN;
+                }
+                break;
+            
+            case 'a':
+                if(myDir != RIGHT)
+                {
+                    myDir = LEFT;
+                }
+                break;
+            
+            case 'd':
+                if(myDir != LEFT)
+                {
+                    myDir = RIGHT;
+                }
+                break;
 
+            default:
+                break;
+        }
+    }
     
 }
 
 void Player::movePlayer()
 {
     // PPA3 Finite myDir Machine logic
+    switch(myDir)
+    {
+        case UP:
+            if(playerPos.pos->y == 1){
+                playerPos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            else{
+                playerPos.pos->y--;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            break;
+
+        case DOWN:
+            if(playerPos.pos->y == mainGameMechsRef->getBoardSizeY() - 2){
+                playerPos.pos->y = 1;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            else{
+                playerPos.pos->y++;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            break;
+        
+        case LEFT:
+            if(playerPos.pos->x == 1){
+                playerPos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            else{
+                playerPos.pos->x--;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            break;
+
+        case RIGHT:
+            if(playerPos.pos->x == mainGameMechsRef->getBoardSizeX() - 2){
+                playerPos.pos->x = 1;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            else{
+                playerPos.pos->x++;
+                // mainGameMechsRef->setObject(playerPos);
+            }
+            break;
+
+    }
     
     
 }
@@ -46,132 +133,7 @@ void Player::drawPlayer()
     mainGameMechsRef->setObject(playerPos);
 }
 
-// More methods to be added
-
-//Benji PPA Copy Paste
-// Update PlayerDIR
-/*if (mainGameMechsRef->getInput() != 0) // if not null character
-    {
-        Dir prev_val = LEFT;
-        switch (mainGameMechsRef->getInput())
-        {
-            case ' ': // exit
-                mainGameMechsRef->setExitTrue();
-                break;
-            case 'w':
-                myDir = UP;
-                break;
-            case 'a':
-                myDir = LEFT;
-
-                break;
-            case 's':
-                myDir = DOWN;
-
-                break;
-            case 'd':
-                myDir = RIGHT;
-                break;
-            default:
-                myDir = prev_val;
-                break;
-        }
-        // Set of ifs will check if input is invalid
-        if (prev_val == LEFT && myDir == RIGHT)
-        {
-            myDir = prev_val;
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' '); // makes sure you don't go left to right
-        }
-        else if (prev_val == RIGHT && myDir == LEFT)
-        {
-            myDir = prev_val;
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-        }
-        else if (prev_val == UP && myDir == DOWN)
-        {
-            myDir = prev_val;
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-        }
-        else if (prev_val == DOWN && myDir == UP)
-        {
-            myDir = prev_val;
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-        }
-        else
-        {
-            prev_val = myDir;
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-        }
-
-
-
-    }*/
-   //MOVE PLAYER
-/*if (myDir == LEFT)
-    {
-        if (playerPos.pos->x > 1)
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->x -= 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-        else
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->x = mainGameMechsRef->getBoardSizeX()-1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-    }
-    else if (myDir == RIGHT)
-    {
-        if (playerPos.pos->x < mainGameMechsRef->getBoardSizeX() - 1)
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->x += 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-        else
-        {
-           mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->x = 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-    }
-    else if (myDir == UP)
-    {
-        if (playerPos.pos->y > 1)
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->y -= 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-        else
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->y = mainGameMechsRef->getBoardSizeX() - 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-    }
-    else if (myDir == DOWN)
-    {
-        if (playerPos.pos->y < mainGameMechsRef->getBoardSizeY()-1)
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->y += 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-        else
-        {
-            mainGameMechsRef->setBoard(playerPos.pos->y, playerPos.pos->x, ' ');
-            playerPos.pos->y = 1;
-            playerPos.setObjPos(playerPos.pos->y, playerPos.pos->x, playerPos.symbol);
-            mainGameMechsRef->setObject(playerPos);
-        }
-    }*/
+int Player::getDirection()
+{
+    return myDir;
+}
