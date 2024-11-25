@@ -4,6 +4,7 @@
 #include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
+#include <Windows.h>
 
 class Player
 {
@@ -35,7 +36,7 @@ public:
     // More methods to be added here
 
 private:
-    objPos playerPos; // Upgrade this in iteration 3.
+    objPos* playerPos; // Upgrade this in iteration 3.
     enum Dir myDir;
 
     // Need a reference to the Main Game Mechanisms

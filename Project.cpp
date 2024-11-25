@@ -51,22 +51,29 @@ void GetInput(void)
     {
         board->setInput(MacUILib_getChar());
     }
+    else {
+        board->setInput(0);
+    }
 }
 
 void RunLogic(void)
 {
-    if (board->getInput() == ' ')
-    {
-        board->setExitTrue();
+    switch(board->getInput()) {
+        case 0:
+            break;
+        case ' ':
+            board->setExitTrue();
+            break;
+        case 'q':
+            board->incrementScore();
+            break;
+        default:
+            p->updatePlayerDir();
+            break;
     }
-    else if (board->getInput() == 'q')
-    {
-        board->incrementScore();
-    }
-    //p->updatePlayerDir();
-    //p->movePlayer();
+
+    p->movePlayer();
     p->drawPlayer();
-    
     board->clearInput();
 }
 
@@ -88,7 +95,7 @@ void DrawScreen(void)
     MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
     MacUILib_printf("Score: %d", board->getScore());
 
-    MacUILib_printf("%d", p->getDirection());
+    MacUILib_printf("\nDirection: %d", p->getDirection());
 
 }
 void LoopDelay(void)

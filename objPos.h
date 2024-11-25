@@ -1,6 +1,8 @@
 #ifndef OBJPOS_H
 #define OBJPOS_H
-
+#include <Windows.h>
+#include <iostream>
+using namespace std;
 // Not really a C++ thing
 typedef struct 
 {

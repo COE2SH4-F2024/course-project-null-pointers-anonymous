@@ -3,7 +3,8 @@
 
 #include <cstdlib>
 #include <time.h>
-
+#include <iostream>
+#include <Windows.h>
 #include "objPos.h"
 #include "objPosArrayList.h"
 
