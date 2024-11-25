@@ -137,9 +137,8 @@ void GameMechs::setBoard(int y, int x, char val)
 {
     board[y][x] = val;
 }
-void GameMechs::setObject(const objPos &obj)
-{
-    board[obj.pos->y][obj.pos->x] = obj.getSymbol();
+void GameMechs::setObject(const objPos& obj ) {
+    board[obj.pos->y][obj.pos->x]=obj.getSymbol();
 }
 
 // More methods should be added here
