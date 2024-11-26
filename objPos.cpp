@@ -25,20 +25,25 @@ objPos::~objPos()
 }
 objPos::objPos(const objPos &obj)
 {
+    pos=new Pos;
     pos->x = obj.pos->x;
     pos->y = obj.pos->y;
     symbol = obj.symbol;
 }
 objPos &objPos::operator=(const objPos &obj)
 {
-    if (this == &obj)
+    if (!(this == &obj))
     {
-        return *this;
+        delete pos;
+        pos = new Pos;
+        pos->x = obj.pos->x;
+        pos->y = obj.pos->y;
+        symbol = obj.symbol;
+       
     }
 
-    this->pos->x = obj.pos->x;
-    this->pos->y = obj.pos->y;
-    this->symbol = obj.symbol;
+    
+    return *this;
 }
 
 void objPos::setObjPos(objPos o)
