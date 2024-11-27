@@ -6,8 +6,8 @@ Player::Player(GameMechs *thisGMRef)
     myDir = STOP;
     //figure out how to set up heap allocation
     playerPos = new objPos(10, 8, '8');
-   
- 
+    
+
     // more actions to be included
 }
  
@@ -22,17 +22,14 @@ Player::~Player()
 objPos Player::getPlayerPos() const
 {
     return *playerPos;
-    // return the reference to the playerPos arrray list
+    // return the reference to the playerPos aray list
 }
  
 void Player::updatePlayerDir()
 {
     switch(mainGameMechsRef->getInput())
     {                      
-        /*case ' ':  // exit
-            mainGameMechsRef->setExitTrue();
-            break;
-        */
+       
         case 'w':
            
             if(myDir != DOWN)

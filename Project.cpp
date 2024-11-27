@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "Player.h"
+#include "Food.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ void CleanUp(void);
 
 GameMechs *board;
 Player *p;
+Food *f;
 
 int main(void)
 {
@@ -42,7 +44,9 @@ void Initialize(void)
 
     board = new GameMechs();
     p = new Player(board);
+    f = new Food(board);
     p->drawPlayer();
+    f->generateFood(p->getPlayerPos());
 }
 
 void GetInput(void)
@@ -58,20 +62,24 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    switch(board->getInput()) {
+
+    switch (board->getInput())
+    {
         case 0:
             break;
         case ' ':
             board->setExitTrue();
             break;
-        case 'q':
-            board->incrementScore();
-            break;
-        default:
-            p->updatePlayerDir();
+        case 'q': // Debug key for incrementing score 
+            board->incrementScore(); 
+            break; 
+        case 'f': // Debug key for generating new food on the fly
+            f->generateFood(p->getPlayerPos());
+            break; 
+        default: 
+            p->updatePlayerDir(); 
             break;
     }
-
     p->movePlayer();
     p->drawPlayer();
     board->clearInput();
@@ -94,8 +102,8 @@ void DrawScreen(void)
     }
     MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
     MacUILib_printf("Score: %d", board->getScore());
-
     MacUILib_printf("\nDirection: %d", p->getDirection());
+    MacUILib_printf("\nFood Position: %d %d", f->getFoodPosX(),f->getFoodPosY());
 
 }
 void LoopDelay(void)
@@ -109,5 +117,6 @@ void CleanUp(void)
 
     MacUILib_uninit();
     delete p;
+    delete f;
     delete board;
 }

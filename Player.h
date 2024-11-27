@@ -31,8 +31,9 @@ public:
         void updatePlayerDir();
         void movePlayer();
         void drawPlayer();
-
         int getDirection();
+        int getPlayerPosX();
+        int getPlayerPosY();
     // More methods to be added here
 
 private:
