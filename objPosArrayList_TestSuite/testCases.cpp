@@ -40,7 +40,6 @@ void testConstructor()
 	
 	// First check the list size
 	result &= assert_equal(expectedSize, actualSize);
-
 	bool expectedCheck = true;
 	bool actualCheck;
 

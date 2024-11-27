@@ -4,8 +4,22 @@ Player::Player(GameMechs *thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    //figure out how to set up heap allocation
-    playerPos = new objPos(10, 8, '8');
+    playerPosList = new objPosArrayList();
+    //lazy way to start with longer snake
+    for(int i = 0; i<5; i ++) {
+        playerPos = new objPos(i+8, 10, '8');
+        playerPosList->insertHead(playerPos);
+    }
+    //for three (or less)
+    /*playerPos = new objPos(8,10,'8');
+    playerPosList->insertHead(playerPos);
+    playerPos = new objPos(9,10,'-');
+    playerPosList->insertTail(playerPos);
+    playerPos = new objPos(10,10,'-');
+    playerPosList->insertTail(playerPos);*/
+    
+    
+   
     
 
     // more actions to be included
@@ -13,7 +27,7 @@ Player::Player(GameMechs *thisGMRef)
  
 Player::~Player()
 {
-    delete playerPos;
+    delete[] playerPosList;
    
  
     // delete any heap members here
@@ -21,7 +35,7 @@ Player::~Player()
  
 objPos Player::getPlayerPos() const
 {
-    return *playerPos;
+    return playerPosList->getHeadElement();
     // return the reference to the playerPos aray list
 }
  
@@ -73,60 +87,72 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite myDir Machine logic
-    mainGameMechsRef->setBoard(playerPos->pos->y,playerPos->pos->x, ' ');
+    objPos tail = playerPosList->getTailElement();
+    mainGameMechsRef->setBoard(tail.getObjPos().pos->y, tail.getObjPos().pos->x, ' ');
     switch(myDir)
     {
         case UP:
             if(playerPos->pos->y == 1){
                 playerPos->pos->y = mainGameMechsRef->getBoardSizeY() - 2;
-               
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+                
             }
             else{
                 playerPos->pos->y=playerPos->pos->y-1;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
             }
             break;
  
         case DOWN:
             if(playerPos->pos->y == mainGameMechsRef->getBoardSizeY() - 2){
                 playerPos->pos->y = 1;
-               
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
             }
             else{
-                playerPos->pos->y++;                
+                playerPos->pos->y++;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
             }
             break;
        
         case LEFT:
             if(playerPos->pos->x == 1){
                 playerPos->pos->x = mainGameMechsRef->getBoardSizeX() - 2;
-               
-               
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
             }
             else{
                 playerPos->pos->x--;
-               
-               
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
             }
             break;
  
         case RIGHT:
             if(playerPos->pos->x == mainGameMechsRef->getBoardSizeX() - 2){
                 playerPos->pos->x = 1;
-               
-               
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
             }
             else{
                 playerPos->pos->x++;
-               
-               
-            }
+                playerPosList->insertHead(playerPos);                
+                playerPosList->removeTail();
+         }
             break;
     }
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
-    mainGameMechsRef->setObject(*playerPos);
-  }
+    int i = 0;
+    for(i = 0; i<playerPosList->getSize(); i++) {
+        mainGameMechsRef->setObject(playerPosList->getElement(i));
+    }
+    
+}
  
 int Player::getDirection()
 {

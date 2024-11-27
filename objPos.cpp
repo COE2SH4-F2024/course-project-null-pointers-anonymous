@@ -21,28 +21,34 @@ objPos::objPos(int xPos, int yPos, char sym)
 
 objPos::~objPos()
 {
-    delete[] pos;
+    delete pos;
 }
 objPos::objPos(const objPos &obj)
 {
-    pos=new Pos;
+    pos = new Pos;
     pos->x = obj.pos->x;
     pos->y = obj.pos->y;
     symbol = obj.symbol;
 }
 objPos &objPos::operator=(const objPos &obj)
 {
-    if (!(this == &obj))
+    if (this != &obj)
     {
-        delete pos;
-        pos = new Pos;
-        pos->x = obj.pos->x;
-        pos->y = obj.pos->y;
+        if (obj.pos)
+        {
+            delete pos;
+            pos = new Pos;
+            pos->x = obj.pos->x;
+            pos->y = obj.pos->y;
+        }
+        else
+        {
+            delete pos;
+            pos = nullptr;
+        }
         symbol = obj.symbol;
-       
     }
 
-    
     return *this;
 }
 
@@ -77,9 +83,18 @@ char objPos::getSymbol() const
 
 bool objPos::isPosEqual(const objPos *refPos) const
 {
-    return (refPos->pos->x == pos->x && refPos->pos->y == pos->y);
+    if (refPos && refPos->pos)
+    {
+        if (refPos->pos->x == pos->x && refPos->pos->y == pos->y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
-
 char objPos::getSymbolIfPosEqual(const objPos *refPos) const
 {
     if (isPosEqual(refPos))
