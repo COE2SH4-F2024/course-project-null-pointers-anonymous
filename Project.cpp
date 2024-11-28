@@ -43,8 +43,8 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     board = new GameMechs();
-    p = new Player(board);
     f = new Food(board);
+    p = new Player(board, f);
     p->drawPlayer();
     f->generateFood(p->getPlayerPos());
 }
@@ -55,7 +55,8 @@ void GetInput(void)
     {
         board->setInput(MacUILib_getChar());
     }
-    else {
+    else
+    {
         board->setInput(0);
     }
 }
@@ -65,20 +66,22 @@ void RunLogic(void)
 
     switch (board->getInput())
     {
-        case 0:
-            break;
-        case ' ':
-            board->setExitTrue();
-            break;
-        case 'q': // Debug key for incrementing score 
-            board->incrementScore(); 
-            break; 
-        case 'f': // Debug key for generating new food on the fly
-            f->generateFood(p->getPlayerPos());
-            break; 
-        default: 
-            p->updatePlayerDir(); 
-            break;
+    case 0:
+        break;
+    case ' ':
+        board->setExitTrue();
+        break;
+    case 'q': // Debug key for incrementing score
+        board->incrementScore();
+        break;
+    default:
+        p->updatePlayerDir();
+        break;
+    }
+    if (p->checkFoodConsumption() == true)
+    {
+        p->increasePlayerLength();
+        // f->generateFood(p->getPlayerPos());
     }
     p->movePlayer();
     p->drawPlayer();
@@ -103,8 +106,7 @@ void DrawScreen(void)
     MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
     MacUILib_printf("Score: %d", board->getScore());
     MacUILib_printf("\nDirection: %d", p->getDirection());
-    MacUILib_printf("\nFood Position: %d %d", f->getFoodPosX(),f->getFoodPosY());
-
+    MacUILib_printf("\nFood Position: %d %d", f->getFoodPosX(), f->getFoodPosY());
 }
 void LoopDelay(void)
 {

@@ -1,4 +1,4 @@
-#include "objPosArrayList.h"
+w#include "objPosArrayList.h"
 
 objPosArrayList::objPosArrayList()
 {
@@ -24,6 +24,7 @@ void objPosArrayList::insertHead(objPos thisPos)
         for (int i = listSize; i > 0; i--)
         {
             aList[i] = aList[i - 1];
+            //aList[i]->symbol='8';
         }
         aList[0] = thisPos;
         listSize++;
