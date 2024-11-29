@@ -74,9 +74,6 @@ void RunLogic(void)
     case 'q': // Debug key for incrementing score
         board->incrementScore();
         break;
-    case 'f': // Debug key for generating new food on the fly
-        f->generateFood(p->getPlayerPos());
-        break;
     default:
         p->updatePlayerDir();
         break;
@@ -84,6 +81,7 @@ void RunLogic(void)
     if (p->checkFoodConsumption() == true)
     {
         p->increasePlayerLength();
+        f->generateFood(p->getPlayerPos());
     }
     p->movePlayer();
     p->drawPlayer();

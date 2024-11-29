@@ -29,6 +29,7 @@ public:
     ~Player();
 
     objPos getPlayerPos() const; // Upgrade this in iteration 3.
+    objPosArrayList getPlayer() const;
     void updatePlayerDir();
     void movePlayer();
     void drawPlayer();

@@ -40,6 +40,10 @@ objPos Player::getPlayerPos() const
     // return the reference to the playerPos aray list
 }
 
+objPosArrayList Player::getPlayer() const
+{
+    return *playerPosList;
+}
 void Player::updatePlayerDir()
 {
     switch (mainGameMechsRef->getInput())
