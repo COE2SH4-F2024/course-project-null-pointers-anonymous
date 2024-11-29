@@ -6,13 +6,9 @@ Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
     foodPos = thisFoodPos;
     myDir = STOP;
     playerPosList = new objPosArrayList();
-    // lazy way to start with longer snake
-    for (int i = 0; i < 5; i++)
-    {
-        playerPos = new objPos(i + 8, 10, '8');
-        playerPosList->insertHead(playerPos);
-        delete playerPos;
-    }
+    playerPos = new objPos(8, 10, '8');
+    playerPosList->insertHead(playerPos);
+    
     // for three (or less)
     /*playerPos = new objPos(8,10,'8');
     playerPosList->insertHead(playerPos);
@@ -28,6 +24,8 @@ Player::~Player()
 {
     delete playerPosList;
     delete playerPos;
+
+    
 
     // delete any heap members here
 }
