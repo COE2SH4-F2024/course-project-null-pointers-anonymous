@@ -6,7 +6,7 @@ Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
     foodPos = thisFoodPos;
     myDir = STOP;
     playerPosList = new objPosArrayList();
-    playerPos = new objPos(8, 10, '8');
+    playerPos = new objPos(3, 3, '8');
     playerPosList->insertHead(playerPos);
     
     // for three (or less)
@@ -210,3 +210,21 @@ bool Player::checkSelfCollision() {
     }
     return false;
 }
+
+void Player::checkFoodSpawn()
+{
+
+    // foodPos->generateFood(*playerPosList);
+
+    for (int i = 0; i < playerPosList->getSize(); i++)
+    {
+        objPos bodySegment = playerPosList->getElement(i);
+        if(foodPos->getFoodPosX() == bodySegment.pos->x && foodPos->getFoodPosY() ==bodySegment.pos->y)
+        {
+            // cout<<"overlap food on pos"<<endl;
+            // Sleep(2000);
+            foodPos->generateFood(*playerPosList);
+        }
+    }
+
+} 

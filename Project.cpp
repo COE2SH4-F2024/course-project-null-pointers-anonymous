@@ -42,7 +42,7 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    board = new GameMechs();
+    board = new GameMechs(7,7);
     f = new Food(board);
     p = new Player(board, f);
     p->drawPlayer();
@@ -84,8 +84,10 @@ void RunLogic(void)
     else if (p->checkFoodConsumption() == true)
     {
         p->increasePlayerLength();
-        f->generateFood(p->getPlayerPos());
+        board->incrementScore();
+        // f->generateFood(p->getPlayerPos());
     }
+    p->checkFoodSpawn();
     p->movePlayer();
     p->drawPlayer();
     board->clearInput();
@@ -108,7 +110,6 @@ void DrawScreen(void)
     }
     MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
     MacUILib_printf("Score: %d", board->getScore());
-    MacUILib_printf("\nDirection: %d", p->getDirection());
     MacUILib_printf("\nFood Position: %d %d", f->getFoodPosX(), f->getFoodPosY());
     MacUILib_printf("\nPlayer Position: %d %d", p->getPlayerPosX(), p->getPlayerPosY());
     

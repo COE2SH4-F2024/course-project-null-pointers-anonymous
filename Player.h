@@ -39,6 +39,7 @@ public:
     bool checkFoodConsumption();
     void increasePlayerLength();
     bool checkSelfCollision();
+    void checkFoodSpawn();
     // More methods to be added here
 
 private:
