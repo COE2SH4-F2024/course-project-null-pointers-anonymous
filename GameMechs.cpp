@@ -5,7 +5,7 @@ GameMechs::GameMechs()
     boardSizeX = 30;
     boardSizeY = 15;
     score = 0;
-    exitFlag = false;
+    exitFlag = false, loseFlag=false;
     int i, j;
 
     board = new char *[boardSizeY];

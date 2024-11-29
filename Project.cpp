@@ -97,7 +97,8 @@ void RunLogic(void)
             }
         }
         board->setLoseFlag();
-        MacUILib_printf("Press SPACE BAR to exit the game");
+        MacUILib_printf("Press SPACE BAR to exit the game!!!!");
+
     }
     else if (p->checkFoodConsumption() == true && board->getLoseFlagStatus()==false)
     {
@@ -108,10 +109,15 @@ void RunLogic(void)
     if(board->getLoseFlagStatus()==false){p->movePlayer();}
     p->drawPlayer();
     board->clearInput();
+    if(board->getLoseFlagStatus()) {
+        MacUILib_Delay(5000000);
+        board->setExitTrue();
+    }
 }
 
 void DrawScreen(void)
 {
+    
     MacUILib_clearScreen();
 
     // actually prints out board
