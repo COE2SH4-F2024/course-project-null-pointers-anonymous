@@ -42,7 +42,7 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    board = new GameMechs(7,7);
+    board = new GameMechs();
     f = new Food(board);
     p = new Player(board, f);
     p->drawPlayer();
@@ -79,16 +79,33 @@ void RunLogic(void)
         break;
     }
     if(p->checkSelfCollision()==true) {
-        board->setExitTrue();
+        for(int i = 2; i<=7; i++) {
+            for(int j = 2; j<=8;j++) {
+                if((j==3 || j==4) && i>2) {
+                    continue;
+                }
+                else if (j==5 && (i==3 || i==4)) {
+                    continue;
+                }
+                else if ((j==6 || j==7) && (i>2 && i<7)) {
+                    continue;
+                }
+                else {
+                    board->setBoard(j, i, 'x');
+                    board->setBoard(j, i+7, 'x');
+                }    
+            }
+        }
+        board->setLoseFlag();
+        MacUILib_printf("Press SPACE BAR to exit the game");
     }
-    else if (p->checkFoodConsumption() == true)
+    else if (p->checkFoodConsumption() == true && board->getLoseFlagStatus()==false)
     {
         p->increasePlayerLength();
         board->incrementScore();
-        // f->generateFood(p->getPlayerPos());
     }
     p->checkFoodSpawn();
-    p->movePlayer();
+    if(board->getLoseFlagStatus()==false){p->movePlayer();}
     p->drawPlayer();
     board->clearInput();
 }

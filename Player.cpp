@@ -6,16 +6,8 @@ Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
     foodPos = thisFoodPos;
     myDir = STOP;
     playerPosList = new objPosArrayList();
-    playerPos = new objPos(3, 3, '8');
+    playerPos = new objPos(8,10, '8');
     playerPosList->insertHead(playerPos);
-    
-    // for three (or less)
-    /*playerPos = new objPos(8,10,'8');
-    playerPosList->insertHead(playerPos);
-    playerPos = new objPos(9,10,'-');
-    playerPosList->insertTail(playerPos);
-    playerPos = new objPos(10,10,'-');
-    playerPosList->insertTail(playerPos);*/
 
     // more actions to be included
 }
@@ -152,7 +144,6 @@ void Player::movePlayer()
         }
         break;
     }
-    
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
