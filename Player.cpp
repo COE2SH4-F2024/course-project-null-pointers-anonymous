@@ -11,6 +11,7 @@ Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
     {
         playerPos = new objPos(i + 8, 10, '8');
         playerPosList->insertHead(playerPos);
+        delete playerPos;
     }
     // for three (or less)
     /*playerPos = new objPos(8,10,'8');
@@ -25,7 +26,8 @@ Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
 
 Player::~Player()
 {
-    delete[] playerPosList;
+    delete playerPosList;
+    delete playerPos;
 
     // delete any heap members here
 }

@@ -69,7 +69,7 @@ GameMechs::~GameMechs()
 {
     for (int i = 0; i < boardSizeX; ++i)
     {
-        delete[] board[i];
+        delete board[i];
     }
     delete[] board;
 }
