@@ -69,7 +69,7 @@ GameMechs::~GameMechs()
 {
     for (int i = 0; i < boardSizeX; ++i)
     {
-        delete[] board[i];
+        delete board[i];
     }
     delete[] board;
 }
@@ -117,6 +117,7 @@ void GameMechs::setExitTrue()
 
 void GameMechs::setLoseFlag()
 {
+    loseFlag= true;
 }
 
 void GameMechs::setInput(char this_input)
@@ -138,8 +139,11 @@ void GameMechs::setBoard(int y, int x, char val)
     board[y][x] = val;
 }
 void GameMechs::setObject(const objPos& obj ) {
-    board[obj.pos->y][obj.pos->x]=obj.getSymbol();
+    if (obj.pos == nullptr && obj.getSymbol()==0)
+    {return;}
 
+    board[obj.pos->y][obj.pos->x] = obj.getSymbol();
+    
 }
 
 // More methods should be added here

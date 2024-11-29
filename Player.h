@@ -1,14 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-class Food;
-
+#include "Food.h"
 #include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include <Windows.h>
-#include <Food.h>
-
 
 class Player
 {
@@ -28,24 +25,26 @@ public:
         STOP
     }; // This is the direction state
 
-    Player(GameMechs *thisGMRef);
+    Player(GameMechs *thisGMRef, Food *thisFoodPos);
     ~Player();
 
-        objPos getPlayerPos() const; // Upgrade this in iteration 3.       
-        void updatePlayerDir();
-        void movePlayer();
-        void drawPlayer();
-        int getDirection();
-        int getPlayerPosX();
-        int getPlayerPosY();
-        bool checkFoodConsumption(Food* f);
-        void increasePlayerLength();
-        bool checkSelfCollision();
+    objPos getPlayerPos() const; // Upgrade this in iteration 3.
+    objPosArrayList getPlayer() const;
+    void updatePlayerDir();
+    void movePlayer();
+    void drawPlayer();
+    int getDirection();
+    int getPlayerPosX();
+    int getPlayerPosY();
+    bool checkFoodConsumption();
+    void increasePlayerLength();
+    bool checkSelfCollision();
     // More methods to be added here
 
 private:
-    objPos* playerPos;
-    objPosArrayList* playerPosList; // Upgrade this in iteration 3.
+    objPos *playerPos;
+    objPosArrayList *playerPosList; // Upgrade this in iteration 3.
+    Food *foodPos;
     enum Dir myDir;
 
     // Need a reference to the Main Game Mechanisms

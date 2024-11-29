@@ -9,6 +9,9 @@ objPosArrayList::objPosArrayList()
 
 objPosArrayList::~objPosArrayList()
 {
+    for(int i = 0; i<listSize; i++) {
+        delete aList[i];
+    }
     delete[] aList;
 }
 

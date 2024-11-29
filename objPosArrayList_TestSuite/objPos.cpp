@@ -34,13 +34,15 @@ objPos &objPos::operator=(const objPos &obj)
 {
     if (this != &obj)
     {
-        if(obj.pos) {
+        if (obj.pos)
+        {
             delete pos;
             pos = new Pos;
             pos->x = obj.pos->x;
             pos->y = obj.pos->y;
         }
-        else {
+        else
+        {
             delete pos;
             pos = nullptr;
         }
@@ -81,7 +83,8 @@ char objPos::getSymbol() const
 
 bool objPos::isPosEqual(const objPos *refPos) const
 {
-    if(refPos && refPos->pos) {
+    if (refPos && refPos->pos)
+    {
         if (refPos->pos->x == pos->x && refPos->pos->y == pos->y)
         {
             return true;
