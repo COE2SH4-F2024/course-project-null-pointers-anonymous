@@ -15,6 +15,7 @@ public:
     ~Food();
 
     void generateFood(const objPos &foodObj);
+    void generateFood(const objPosArrayList &foodObj);
     objPos getFoodPos();
     int getFoodPosX();
     int getFoodPosY();

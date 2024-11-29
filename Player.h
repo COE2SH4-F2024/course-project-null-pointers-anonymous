@@ -38,6 +38,7 @@ public:
     int getPlayerPosY();
     bool checkFoodConsumption();
     void increasePlayerLength();
+    bool checkSelfCollision();
     // More methods to be added here
 
 private:

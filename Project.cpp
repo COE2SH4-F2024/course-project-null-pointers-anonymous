@@ -78,7 +78,10 @@ void RunLogic(void)
         p->updatePlayerDir();
         break;
     }
-    if (p->checkFoodConsumption() == true)
+    if(p->checkSelfCollision()==true) {
+        board->setExitTrue();
+    }
+    else if (p->checkFoodConsumption() == true)
     {
         p->increasePlayerLength();
         f->generateFood(p->getPlayerPos());
@@ -108,6 +111,7 @@ void DrawScreen(void)
     MacUILib_printf("\nDirection: %d", p->getDirection());
     MacUILib_printf("\nFood Position: %d %d", f->getFoodPosX(), f->getFoodPosY());
     MacUILib_printf("\nPlayer Position: %d %d", p->getPlayerPosX(), p->getPlayerPosY());
+    
 }
 void LoopDelay(void)
 {

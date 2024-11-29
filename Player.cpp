@@ -32,11 +32,7 @@ Player::~Player()
 
 objPos Player::getPlayerPos() const
 {
-    if (playerPosList->getSize() > 0)
-    {
-        objPos headPos = playerPosList->getHeadElement();
-        return headPos;
-    }
+    return playerPosList->getHeadElement();
     // return the reference to the playerPos aray list
 }
 
@@ -156,12 +152,15 @@ void Player::movePlayer()
         }
         break;
     }
+    
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
     int i = 0;
-    for (i = 0; i < playerPosList->getSize(); i++)
+    mainGameMechsRef->setObject(playerPosList->getHeadElement());
+    for (i = 1; i < playerPosList->getSize(); i++)
     {
+        
         mainGameMechsRef->setObject(playerPosList->getElement(i));
     }
 }
@@ -197,4 +196,17 @@ bool Player::checkFoodConsumption()
 void Player::increasePlayerLength()
 {
     playerPosList->insertHead(playerPos);
+}
+bool Player::checkSelfCollision() {
+    objPos head = playerPosList->getHeadElement();
+
+    for (int i = 1; i < playerPosList->getSize(); i++)
+    {
+        objPos bodySegment = playerPosList->getElement(i);
+        if (head.pos->x==bodySegment.pos->x && head.pos->y == bodySegment.pos->y)
+        {
+            return true;
+        }
+    }
+    return false;
 }
