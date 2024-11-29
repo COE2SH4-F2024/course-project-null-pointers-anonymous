@@ -1,167 +1,163 @@
 #include "Player.h"
-
-Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
+ 
+Player::Player(GameMechs *thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
-    foodPos = thisFoodPos;
     myDir = STOP;
     playerPosList = new objPosArrayList();
-    // lazy way to start with longer snake
-    for (int i = 0; i < 5; i++)
-    {
-        playerPos = new objPos(i + 8, 10, '8');
+    //lazy way to start with longer snake
+    for(int i = 0; i<5; i ++) {
+        playerPos = new objPos(i+8, 10, '8');
         playerPosList->insertHead(playerPos);
     }
-    // for three (or less)
+    //for three (or less)
     /*playerPos = new objPos(8,10,'8');
     playerPosList->insertHead(playerPos);
     playerPos = new objPos(9,10,'-');
     playerPosList->insertTail(playerPos);
     playerPos = new objPos(10,10,'-');
     playerPosList->insertTail(playerPos);*/
+    
+    
+   
+    
 
     // more actions to be included
 }
-
+ 
 Player::~Player()
 {
     delete[] playerPosList;
-
+   
+ 
     // delete any heap members here
 }
-
+ 
 objPos Player::getPlayerPos() const
 {
-    if (playerPosList->getSize() > 0)
+    if(playerPosList->getSize() > 0)
     {
         objPos headPos = playerPosList->getHeadElement();
         return headPos;
     }
     // return the reference to the playerPos aray list
 }
-
+ 
 void Player::updatePlayerDir()
 {
-    switch (mainGameMechsRef->getInput())
-    {
-
-    case 'w':
-
-        if (myDir != DOWN)
-        {
-            myDir = UP;
-            cout << "UP" << endl;
-        }
-        break;
-
-    case 's':
-        cout << "DOWN" << endl;
-        if (myDir != UP)
-        {
-            myDir = DOWN;
-        }
-        break;
-
-    case 'a':
-        cout << "LEFT" << endl;
-        if (myDir != RIGHT)
-        {
-            myDir = LEFT;
-        }
-        break;
-
-    case 'd':
-        cout << "RIGHT" << endl;
-        if (myDir != LEFT)
-        {
-            myDir = RIGHT;
-        }
-        break;
-
-    default:
-        break;
+    switch(mainGameMechsRef->getInput())
+    {                      
+       
+        case 'w':
+           
+            if(myDir != DOWN)
+            {
+                myDir = UP;
+                cout << "UP" << endl;
+            }
+            break;
+       
+        case 's':
+            cout << "DOWN" << endl;
+            if(myDir != UP)
+            {
+                myDir = DOWN;
+            }
+            break;
+       
+        case 'a':
+            cout << "LEFT" << endl;
+            if(myDir != RIGHT)
+            {
+                myDir = LEFT;
+            }
+            break;
+       
+        case 'd':
+            cout << "RIGHT" << endl;
+            if(myDir != LEFT)
+            {
+                myDir = RIGHT;
+            }
+            break;
+ 
+        default:
+            break;
     }
-
+ 
     mainGameMechsRef->clearInput();
 }
-
+ 
 void Player::movePlayer()
 {
     // PPA3 Finite myDir Machine logic
     objPos tail = playerPosList->getTailElement();
     mainGameMechsRef->setBoard(tail.getObjPos().pos->y, tail.getObjPos().pos->x, ' ');
-    switch (myDir)
+    switch(myDir)
     {
-    case UP:
-        if (playerPos->pos->y == 1)
-        {
-            playerPos->pos->y = mainGameMechsRef->getBoardSizeY() - 2;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        else
-        {
-            playerPos->pos->y = playerPos->pos->y - 1;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        break;
-
-    case DOWN:
-        if (playerPos->pos->y == mainGameMechsRef->getBoardSizeY() - 2)
-        {
-            playerPos->pos->y = 1;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        else
-        {
-            playerPos->pos->y++;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        break;
-
-    case LEFT:
-        if (playerPos->pos->x == 1)
-        {
-            playerPos->pos->x = mainGameMechsRef->getBoardSizeX() - 2;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        else
-        {
-            playerPos->pos->x--;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        break;
-
-    case RIGHT:
-        if (playerPos->pos->x == mainGameMechsRef->getBoardSizeX() - 2)
-        {
-            playerPos->pos->x = 1;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        else
-        {
-            playerPos->pos->x++;
-            playerPosList->insertHead(playerPos);
-            playerPosList->removeTail();
-        }
-        break;
+        case UP:
+            if(playerPos->pos->y == 1){
+                playerPos->pos->y = mainGameMechsRef->getBoardSizeY() - 2;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+                
+            }
+            else{
+                playerPos->pos->y=playerPos->pos->y-1;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+            }
+            break;
+ 
+        case DOWN:
+            if(playerPos->pos->y == mainGameMechsRef->getBoardSizeY() - 2){
+                playerPos->pos->y = 1;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+            }
+            else{
+                playerPos->pos->y++;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+            }
+            break;
+       
+        case LEFT:
+            if(playerPos->pos->x == 1){
+                playerPos->pos->x = mainGameMechsRef->getBoardSizeX() - 2;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+            }
+            else{
+                playerPos->pos->x--;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+            }
+            break;
+ 
+        case RIGHT:
+            if(playerPos->pos->x == mainGameMechsRef->getBoardSizeX() - 2){
+                playerPos->pos->x = 1;
+                playerPosList->insertHead(playerPos);
+                playerPosList->removeTail();
+            }
+            else{
+                playerPos->pos->x++;
+                playerPosList->insertHead(playerPos);                
+                playerPosList->removeTail();
+         }
+            break;
     }
 }
 void Player::drawPlayer()
 { // method to draw the player using the private struct
     int i = 0;
-    for (i = 0; i < playerPosList->getSize(); i++)
-    {
+    for(i = 0; i<playerPosList->getSize(); i++) {
         mainGameMechsRef->setObject(playerPosList->getElement(i));
     }
+    
 }
-
+ 
 int Player::getDirection()
 {
     return myDir;
@@ -179,18 +175,37 @@ int Player::getPlayerPosY()
     return headPos.pos->y;
 }
 
-bool Player::checkFoodConsumption()
+bool Player::checkFoodConsumption(Food* f)
 {
-    if (playerPos->pos->x == foodPos->getFoodPosX() && playerPos->pos->y == foodPos->getFoodPosY())
+    int playerX = getPlayerPosX();
+    int playerY = getPlayerPosY();
+
+    objPos foodPos = f->getFoodPos();  
+    int foodX = foodPos.pos->x;        
+    int foodY = foodPos.pos->y;        
+
+    if (playerX == foodX && playerY == foodY)
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
+
 void Player::increasePlayerLength()
 {
     playerPosList->insertHead(playerPos);
+}
+
+bool Player::checkSelfCollision() {
+    objPos head = playerPosList->getHeadElement();
+
+    for (int i = 1; i < playerPosList->getSize(); i++) {
+        objPos bodySegment = playerPosList->getElement(i);
+
+        if (head.pos->x == bodySegment.pos->x && head.pos->y == bodySegment.pos->y) {
+            return true;
+        }
+    }
+    return false;
 }
