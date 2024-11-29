@@ -25,20 +25,10 @@ objPos::~objPos()
 }
 objPos::objPos(const objPos &obj)
 {
-
-    if (obj.pos != nullptr)
-    {
-        this->pos = new Pos;
-        this->pos->x = obj.pos->x;
-        this->pos->y = obj.pos->y;
-        cout << "problem1" << endl;
-    }
-    else
-    {
-        pos = nullptr;
-    }
+    pos = new Pos;
+    pos->x = obj.pos->x;
+    pos->y = obj.pos->y;
     symbol = obj.symbol;
-    cout << "problem3" << endl;
 }
 objPos &objPos::operator=(const objPos &obj)
 {
@@ -62,12 +52,8 @@ objPos &objPos::operator=(const objPos &obj)
     return *this;
 }
 
-void objPos::setObjPos(const objPos &o)
+void objPos::setObjPos(objPos o)
 {
-    if (pos == nullptr)
-    {
-        pos = new Pos;
-    }
     pos->x = o.pos->x;
     pos->y = o.pos->y;
     symbol = o.symbol;
@@ -75,10 +61,6 @@ void objPos::setObjPos(const objPos &o)
 
 void objPos::setObjPos(int xPos, int yPos, char sym)
 {
-    if (pos == nullptr)
-    {
-        pos = new Pos;
-    }
     pos->x = xPos;
     pos->y = yPos;
     symbol = sym;
