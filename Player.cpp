@@ -42,12 +42,10 @@ void Player::updatePlayerDir()
         if (myDir != DOWN)
         {
             myDir = UP;
-            cout << "UP" << endl;
         }
         break;
 
     case 's':
-        cout << "DOWN" << endl;
         if (myDir != UP)
         {
             myDir = DOWN;
@@ -55,7 +53,6 @@ void Player::updatePlayerDir()
         break;
 
     case 'a':
-        cout << "LEFT" << endl;
         if (myDir != RIGHT)
         {
             myDir = LEFT;
@@ -63,7 +60,6 @@ void Player::updatePlayerDir()
         break;
 
     case 'd':
-        cout << "RIGHT" << endl;
         if (myDir != LEFT)
         {
             myDir = RIGHT;
@@ -205,15 +201,11 @@ bool Player::checkSelfCollision() {
 void Player::checkFoodSpawn()
 {
 
-    // foodPos->generateFood(*playerPosList);
-
     for (int i = 0; i < playerPosList->getSize(); i++)
     {
         objPos bodySegment = playerPosList->getElement(i);
         if(foodPos->getFoodPosX() == bodySegment.pos->x && foodPos->getFoodPosY() ==bodySegment.pos->y)
         {
-            // cout<<"overlap food on pos"<<endl;
-            // Sleep(2000);
             foodPos->generateFood(*playerPosList);
         }
     }

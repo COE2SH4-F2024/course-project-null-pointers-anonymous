@@ -7,7 +7,7 @@ GameMechs::GameMechs()
     score = 0;
     exitFlag = false, loseFlag=false;
     int i, j;
-
+    // constructor class will make the game board so that it can be drawn on. Additionally allocates memory for it
     board = new char *[boardSizeY];
     for (i = 0; i < boardSizeY; i++)
     {
@@ -32,6 +32,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 {
     exitFlag = false;
     score = 0;
+    //set of ifs in case invalid inputs are given
     if (boardX <= 0)
     {
         boardX = 30;
@@ -40,8 +41,9 @@ GameMechs::GameMechs(int boardX, int boardY)
     {
         boardY = 15;
     }
+    
+    //memory allocated, board array set up
     board = new char *[boardY];
-
     for (int i = 0; i < boardY; i++)
     {
         board[i] = new char[boardX];
@@ -64,15 +66,17 @@ GameMechs::GameMechs(int boardX, int boardY)
     }
 }
 
-// do you need a destructor?
 GameMechs::~GameMechs()
 {
+    //deletes all allocated memory for the board
     for (int i = 0; i < boardSizeX; ++i)
     {
         delete board[i];
     }
     delete[] board;
 }
+
+//getter methods
 
 bool GameMechs::getExitFlagStatus() const
 {
@@ -96,7 +100,6 @@ int GameMechs::getScore() const
 
 void GameMechs::incrementScore()
 {
-    // if apple is touched
     score++;
 }
 
@@ -138,7 +141,8 @@ void GameMechs::setBoard(int y, int x, char val)
 {
     board[y][x] = val;
 }
-void GameMechs::setObject(const objPos& obj ) {
+void GameMechs::setObject(const objPos& obj ) { 
+    //given an object, it will check if it is a non-NULL object and then draw it onto the board
     if (obj.pos == nullptr && obj.getSymbol()==0)
     {return;}
 

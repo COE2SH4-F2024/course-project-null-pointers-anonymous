@@ -42,10 +42,15 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
+    //allocate memory for the game board, food object, and player object
     board = new GameMechs();
     f = new Food(board);
     p = new Player(board, f);
+
+    //draws initial player position 
     p->drawPlayer();
+
+    //generates first food position
     f->generateFood(p->getPlayerPos());
 }
 
@@ -63,7 +68,7 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-
+    //cases check input and either will set exit flag or allow for direction change if a valid input is given
     switch (board->getInput())
     {
     case 0:
@@ -71,13 +76,11 @@ void RunLogic(void)
     case ' ':
         board->setExitTrue();
         break;
-    case 'q': // Debug key for incrementing score
-        board->incrementScore();
-        break;
     default:
         p->updatePlayerDir();
         break;
     }
+    // when player loses it will draw 'GG' on the board
     if(p->checkSelfCollision()==true) {
         for(int i = 2; i<=7; i++) {
             for(int j = 2; j<=8;j++) {
@@ -100,16 +103,22 @@ void RunLogic(void)
         MacUILib_printf("Press SPACE BAR to exit the game!!!!");
 
     }
+    //assuming food is consumed and player has not already lost, will increment score and increase length
     else if (p->checkFoodConsumption() == true && board->getLoseFlagStatus()==false)
     {
         p->increasePlayerLength();
         board->incrementScore();
     }
+    //ensures food is spawned properly and not overlapping snake
     p->checkFoodSpawn();
+    //updates player position
     if(board->getLoseFlagStatus()==false){p->movePlayer();}
+    //draws full snake onto board
     p->drawPlayer();
     board->clearInput();
+
     if(board->getLoseFlagStatus()) {
+        //pauses code for 5 seconds and displays lose sequence
         MacUILib_Delay(5000000);
         board->setExitTrue();
     }
@@ -131,10 +140,9 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop | cannot go in reverse direction, only perpendicular\n");
+    MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop\n");
     MacUILib_printf("Score: %d", board->getScore());
-    MacUILib_printf("\nFood Position: %d %d", f->getFoodPosX(), f->getFoodPosY());
-    MacUILib_printf("\nPlayer Position: %d %d", p->getPlayerPosX(), p->getPlayerPosY());
+
     
 }
 void LoopDelay(void)
@@ -147,6 +155,7 @@ void CleanUp(void)
     MacUILib_clearScreen();
 
     MacUILib_uninit();
+    //deallocates memory
     delete p;
     delete f;
     delete board;
