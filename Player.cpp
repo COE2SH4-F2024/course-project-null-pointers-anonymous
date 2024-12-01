@@ -1,175 +1,168 @@
-#include "Player.h"
+#include "Player.h" //Include the Player class definition
 
-Player::Player(GameMechs *thisGMRef, Food *thisFoodPos)
+Player::Player(GameMechs *thisGMRef, Food *thisFoodPos) // Constructor for the Player class
 {
-    mainGameMechsRef = thisGMRef;
-    foodPos = thisFoodPos;
-    myDir = STOP;
-    playerPosList = new objPosArrayList();
-    playerPos = new objPos(8,10, '8');
-    playerPosList->insertHead(playerPos);
-
-    // more actions to be included
+    mainGameMechsRef = thisGMRef; // Initialize a reference to the game's mechanics
+    foodPos = thisFoodPos;     // Initialize a reference to the food position
+    myDir = STOP;       // Set the player's initial direction to STOP (assumed as no movement)
+    playerPosList = new objPosArrayList();     // Create a dynamic list to store the player's position segments
+    playerPos = new objPos(8,10, '8');     // Create the player's initial position at (8, 10) with identifier '8'
+    playerPosList->insertHead(playerPos);     // Add the player's initial position to the position list
 }
 
-Player::~Player()
+Player::~Player() // Destructor for the Player class
 {
-    delete playerPosList;
-    delete playerPos;
-
-    
-
-    // delete any heap members here
+    delete playerPosList;     // Delete the player's position list to free heap memory
+    delete playerPos;     // Delete the dynamically allocated player position object
 }
 
-objPos Player::getPlayerPos() const
+objPos Player::getPlayerPos() const // Returns the current head position of the player
 {
     return playerPosList->getHeadElement();
-    // return the reference to the playerPos aray list
 }
 
-objPosArrayList Player::getPlayer() const
+objPosArrayList Player::getPlayer() const // Returns the entire player position list as an object
 {
-    return *playerPosList;
+    return *playerPosList; // Dereference and return the position list
 }
-void Player::updatePlayerDir()
+void Player::updatePlayerDir() // Updates the player's direction based on input from game mechanics
 {
-    switch (mainGameMechsRef->getInput())
+    switch (mainGameMechsRef->getInput()) // Check the current input
     {
 
-    case 'w':
+    case 'w': // Input for moving up
 
-        if (myDir != DOWN)
+        if (myDir != DOWN) // Prevent reversal from DOWN to UP
         {
             myDir = UP;
         }
         break;
 
-    case 's':
-        if (myDir != UP)
+    case 's': // Input for moving down
+        if (myDir != UP) // Prevent reversal from UP to DOWN
         {
             myDir = DOWN;
         }
         break;
 
-    case 'a':
-        if (myDir != RIGHT)
+    case 'a': // Input for moving left
+        if (myDir != RIGHT) // Input for moving left
         {
             myDir = LEFT;
         }
         break;
 
-    case 'd':
-        if (myDir != LEFT)
+    case 'd': // Input for moving right
+        if (myDir != LEFT) // Prevent reversal from LEFT to RIGHT
         {
             myDir = RIGHT;
         }
         break;
 
-    default:
+    default: // Ignore any invalid input
         break;
     }
 
     mainGameMechsRef->clearInput();
 }
 
-void Player::movePlayer()
+void Player::movePlayer() // Updates the player's position on the board
+
 {
-    // PPA3 Finite myDir Machine logic
-    objPos tail = playerPosList->getTailElement();
-    mainGameMechsRef->setBoard(tail.getObjPos().pos->y, tail.getObjPos().pos->x, ' ');
-    switch (myDir)
+    objPos tail = playerPosList->getTailElement();  // Get the current tail position
+    mainGameMechsRef->setBoard(tail.getObjPos().pos->y, tail.getObjPos().pos->x, ' ');     // Clear the tail position on the game board
+    switch (myDir)     // Handle movement logic based on the current direction
     {
     case UP:
-        if (playerPos->pos->y == 1)
+        if (playerPos->pos->y == 1) // If at the top edge, wrap around to the bottom
         {
             playerPos->pos->y = mainGameMechsRef->getBoardSizeY() - 2;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos);     // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
-        else
+        else // Otherwise, move up by decreasing y-coordinate
         {
             playerPos->pos->y = playerPos->pos->y - 1;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
-        break;
+        break; 
 
     case DOWN:
-        if (playerPos->pos->y == mainGameMechsRef->getBoardSizeY() - 2)
+        if (playerPos->pos->y == mainGameMechsRef->getBoardSizeY() - 2) // At the bottom edge, wrap to the top
         {
             playerPos->pos->y = 1;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
-        else
+        else // Otherwise, move down by increasing y-coordinate
         {
             playerPos->pos->y++;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
         break;
 
     case LEFT:
-        if (playerPos->pos->x == 1)
+        if (playerPos->pos->x == 1) // At the left edge, wrap around to the right
         {
             playerPos->pos->x = mainGameMechsRef->getBoardSizeX() - 2;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
-        else
+        else // Otherwise, move left by decreasing x-coordinate
         {
             playerPos->pos->x--;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
         break;
 
     case RIGHT:
-        if (playerPos->pos->x == mainGameMechsRef->getBoardSizeX() - 2)
+        if (playerPos->pos->x == mainGameMechsRef->getBoardSizeX() - 2) // At the right edge, wrap to the left
         {
             playerPos->pos->x = 1;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
-        else
+        else // Otherwise, move right by increasing x-coordinate
         {
             playerPos->pos->x++;
-            playerPosList->insertHead(playerPos);
+            playerPosList->insertHead(playerPos); // Insert the updated position as the new head and remove the old tail
             playerPosList->removeTail();
         }
         break;
     }
 }
-void Player::drawPlayer()
-{ // method to draw the player using the private struct
+void Player::drawPlayer() // Draws the player on the game board
+{
     int i = 0;
-    mainGameMechsRef->setObject(playerPosList->getHeadElement());
-    for (i = 1; i < playerPosList->getSize(); i++)
+    mainGameMechsRef->setObject(playerPosList->getHeadElement()); // Draw the head
+    for (i = 1; i < playerPosList->getSize(); i++) // Draw the rest of the body
     {
         
         mainGameMechsRef->setObject(playerPosList->getElement(i));
     }
 }
 
-int Player::getDirection()
+int Player::getDirection() // Returns the current direction of the player
 {
     return myDir;
 }
 
-int Player::getPlayerPosX()
+int Player::getPlayerPosX() // Returns the x-coordinate of the player's head position
 {
     objPos headPos = getPlayerPos();
     return headPos.pos->x;
 }
 
-int Player::getPlayerPosY()
+int Player::getPlayerPosY() // Returns the y-coordinate of the player's head position
 {
     objPos headPos = getPlayerPos();
     return headPos.pos->y;
 }
 
-bool Player::checkFoodConsumption()
+bool Player::checkFoodConsumption() // Checks if the player has consumed food
 {
     if (playerPos->pos->x == foodPos->getFoodPosX() && playerPos->pos->y == foodPos->getFoodPosY())
     {
@@ -180,33 +173,36 @@ bool Player::checkFoodConsumption()
         return false;
     }
 }
-void Player::increasePlayerLength()
+void Player::increasePlayerLength() // Increases the player's length by adding a new head position
 {
     playerPosList->insertHead(playerPos);
 }
-bool Player::checkSelfCollision() {
-    objPos head = playerPosList->getHeadElement();
 
-    for (int i = 1; i < playerPosList->getSize(); i++)
+
+
+bool Player::checkSelfCollision() { // Checks if the player has collided with itself
+    objPos head = playerPosList->getHeadElement(); // Get the head position
+
+    for (int i = 1; i < playerPosList->getSize(); i++) // Check against all body segments
     {
         objPos bodySegment = playerPosList->getElement(i);
         if (head.pos->x==bodySegment.pos->x && head.pos->y == bodySegment.pos->y)
         {
-            return true;
+            return true; // Collision detected
         }
     }
-    return false;
+    return false; // No collision
 }
 
-void Player::checkFoodSpawn()
+void Player::checkFoodSpawn() // Ensures the food does not spawn on the player's body
 {
 
-    for (int i = 0; i < playerPosList->getSize(); i++)
+    for (int i = 0; i < playerPosList->getSize(); i++) // Check all body segments
     {
         objPos bodySegment = playerPosList->getElement(i);
         if(foodPos->getFoodPosX() == bodySegment.pos->x && foodPos->getFoodPosY() ==bodySegment.pos->y)
         {
-            foodPos->generateFood(*playerPosList);
+            foodPos->generateFood(*playerPosList); // If it does spawn on body regenerate food position
         }
     }
 
