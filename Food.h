@@ -16,12 +16,13 @@ public:
 
     void generateFood(const objPos &foodObj);
     void generateFood(const objPosArrayList &foodObj);
-    objPos getFoodPos();
-    int getFoodPosX();
-    int getFoodPosY();
+    objPos* getFoodPos(int index);
+    int getFoodPosX(int index);
+    int getFoodPosY(int index);
 
 private:
-    objPos *foodPos;
+    //objPos *foodPos;
+    objPos *foodPosArray[5];
     GameMechs *mainGameMechsRef;
     int rand_x, rand_y;
 };

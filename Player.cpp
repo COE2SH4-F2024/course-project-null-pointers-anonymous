@@ -171,14 +171,13 @@ int Player::getPlayerPosY()
 
 bool Player::checkFoodConsumption()
 {
-    if (playerPos->pos->x == foodPos->getFoodPosX() && playerPos->pos->y == foodPos->getFoodPosY())
-    {
-        return true;
+    for(int i = 0; i<5; i++) {
+        if (playerPos->pos->x == foodPos->getFoodPosX(i) && playerPos->pos->y == foodPos->getFoodPosY(i))
+        {
+            return true;
+        }
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 void Player::increasePlayerLength()
 {
@@ -204,10 +203,14 @@ void Player::checkFoodSpawn()
     for (int i = 0; i < playerPosList->getSize(); i++)
     {
         objPos bodySegment = playerPosList->getElement(i);
-        if(foodPos->getFoodPosX() == bodySegment.pos->x && foodPos->getFoodPosY() ==bodySegment.pos->y)
-        {
-            foodPos->generateFood(*playerPosList);
+        for(int j = 0; j<5; j++) {
+            if (foodPos->getFoodPosX(j) == bodySegment.pos->x && foodPos->getFoodPosY(j) == bodySegment.pos->y)
+            {
+                foodPos->generateFood(*playerPosList);
+                break;
+            }
         }
+        
     }
 
 } 
