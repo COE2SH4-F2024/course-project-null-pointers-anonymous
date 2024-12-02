@@ -82,23 +82,6 @@ void RunLogic(void)
     }
     // when player loses it will draw 'GG' on the board
     if(p->checkSelfCollision()==true) {
-        for(int i = 2; i<=7; i++) {
-            for(int j = 2; j<=8;j++) {
-                if((j==3 || j==4) && i>2) {
-                    continue;
-                }
-                else if (j==5 && (i==3 || i==4)) {
-                    continue;
-                }
-                else if ((j==6 || j==7) && (i>2 && i<7)) {
-                    continue;
-                }
-                else {
-                    board->setBoard(j, i, 'x');
-                    board->setBoard(j, i+7, 'x');
-                }    
-            }
-        }
         board->setLoseFlag();
         MacUILib_printf("Press SPACE BAR to exit the game!!!!");
 
@@ -125,7 +108,6 @@ void RunLogic(void)
 
     if(board->getLoseFlagStatus()) {
         //pauses code for 5 seconds and displays lose sequence
-        MacUILib_Delay(5000000);
         board->setExitTrue();
     }
 }
@@ -148,6 +130,9 @@ void DrawScreen(void)
     }
     MacUILib_printf(" w = up, a = left, s = down, d = right | space = stop\n");
     MacUILib_printf("Score: %d", board->getScore());
+    if(board->getLoseFlagStatus()) {
+        MacUILib_Delay(3000000);
+    }
 
     
 }

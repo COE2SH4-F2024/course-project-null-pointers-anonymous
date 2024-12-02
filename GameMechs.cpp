@@ -1,4 +1,5 @@
 #include "GameMechs.h"
+#include "MacUILib.h"
 
 GameMechs::GameMechs()
 {
@@ -118,10 +119,35 @@ void GameMechs::setExitTrue()
 {
     exitFlag = true;
 }
+    
+
 
 void GameMechs::setLoseFlag()
 {
     loseFlag= true;
+    for (int i = 2; i <= 7; i++)
+    {
+        for (int j = 2; j <= 8; j++)
+        {
+            if ((j == 3 || j == 4) && i > 2)
+            {
+                continue;
+            }
+            else if (j == 5 && (i == 3 || i == 4))
+            {
+                continue;
+            }
+            else if ((j == 6 || j == 7) && (i > 2 && i < 7))
+            {
+                continue;
+            }
+            else
+            {
+                setBoard(j, i, 'x');
+                setBoard(j, i + 7, 'x');
+            }
+        }
+    }
 }
 
 void GameMechs::setInput(char this_input)
