@@ -43,7 +43,7 @@ public:
     int getBoardSizeY() const;
 
     int getScore() const;
-    void incrementScore();
+    void incrementScore(int incr);
 
     char getBoard(int x, int y);
     void setBoard(int x, int y, char val);

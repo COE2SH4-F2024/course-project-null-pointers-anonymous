@@ -36,8 +36,8 @@ public:
     int getDirection();
     int getPlayerPosX();
     int getPlayerPosY();
-    bool checkFoodConsumption();
-    void increasePlayerLength();
+    int checkFoodConsumption();
+    void increasePlayerLength(int incr);
     bool checkSelfCollision();
     void checkFoodSpawn();
     // More methods to be added here

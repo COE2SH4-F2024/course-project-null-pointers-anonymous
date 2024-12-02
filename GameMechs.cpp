@@ -98,9 +98,10 @@ int GameMechs::getScore() const
     return score;
 }
 
-void GameMechs::incrementScore()
+void GameMechs::incrementScore(int incr)
 {
-    score++;
+    //increments score based on amount inputted
+    score+=incr;
 }
 
 int GameMechs::getBoardSizeX() const

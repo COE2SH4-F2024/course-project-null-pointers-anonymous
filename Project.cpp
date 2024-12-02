@@ -104,10 +104,16 @@ void RunLogic(void)
 
     }
     //assuming food is consumed and player has not already lost, will increment score and increase length
-    else if (p->checkFoodConsumption() == true && board->getLoseFlagStatus()==false)
+    //depending on which type of food was consumed, will either grow normally or grow in a different way!
+    else if (p->checkFoodConsumption() == 1 && board->getLoseFlagStatus()==false)
     {
-        p->increasePlayerLength();
-        board->incrementScore();
+        p->increasePlayerLength(1);
+        board->incrementScore(1);
+    }
+    else if (p->checkFoodConsumption() == 2 && board->getLoseFlagStatus() == false)
+    {
+        p->increasePlayerLength(3);
+        board->incrementScore(10);
     }
     //ensures food is spawned properly and not overlapping snake
     p->checkFoodSpawn();

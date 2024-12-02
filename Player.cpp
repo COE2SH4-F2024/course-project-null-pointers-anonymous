@@ -162,19 +162,30 @@ int Player::getPlayerPosY() // Returns the y-coordinate of the player's head pos
     return headPos.pos->y;
 }
 
-bool Player::checkFoodConsumption() // Checks if the player has consumed food
+int Player::checkFoodConsumption() // Checks if the player has consumed food
 {
+    //returns 0 if there is no collision, 1 if it hits a 'normal' food, and 2 if it hits a 'special' food
     for(int i = 0; i<5; i++) {
         if (playerPos->pos->x == foodPos->getFoodPosX(i) && playerPos->pos->y == foodPos->getFoodPosY(i))
         {
-            return true;
+            if(foodPos->getFoodPos(i)->getSymbol()=='o') {
+                return 1;
+            }
+            else if(foodPos->getFoodPos(i)->getSymbol()=='x') {
+                return 2;
+            }
+            else {return 0;}
         }
     }
-    return false;
+    return 0;
 }
-void Player::increasePlayerLength() // Increases the player's length by adding a new head position
+void Player::increasePlayerLength(int incr) // Increases the player's length by adding a new head position
 {
-    playerPosList->insertHead(playerPos);
+    //increments the snake based on the amount inputted
+    for(int i = 0; i<incr; i++) {
+        playerPosList->insertHead(playerPos);
+    }
+    
 }
 
 

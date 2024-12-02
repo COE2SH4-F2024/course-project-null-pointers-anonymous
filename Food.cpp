@@ -36,7 +36,14 @@ void Food::generateFood(const objPos &blockOff)
             if (!(blockOff.pos->x == rand_x && blockOff.pos->y == rand_y))
             {
                 validPosition = true;
-                foodPosArray[i]->setObjPos(rand_x, rand_y, 'o');
+                if (i > 0)
+                {
+                    foodPosArray[i]->setObjPos(rand_x, rand_y, 'o');
+                }
+                else
+                {
+                    foodPosArray[i]->setObjPos(rand_x, rand_y, 'x');
+                }
                 mainGameMechsRef->setObject(foodPosArray[i]->getObjPos());
                 for (int j = 0; j < i; j++) // ensures two items / player and item are not spawning in same position
                 {
@@ -101,7 +108,13 @@ void Food::generateFood(const objPosArrayList &blockOff)
                 }
             }
         }
-        foodPosArray[i]->setObjPos(rand_x, rand_y, 'o');
+        if(i>0) {
+            foodPosArray[i]->setObjPos(rand_x, rand_y, 'o');
+        }
+        else {
+            foodPosArray[i]->setObjPos(rand_x,rand_y,'x');
+        }
+        
         mainGameMechsRef->setObject(foodPosArray[i]->getObjPos());
     }
     
